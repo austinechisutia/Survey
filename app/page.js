@@ -1,20 +1,27 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { Survey } from "survey-react-ui";
 import { Model } from "survey-core";
-import { LayeredDarkPanelless } from "survey-core/themes";
-import { ContrastDark } from "survey-core/themes";
 import { ContrastLight } from "survey-core/themes";
+import { SurveyCreatorModel } from "survey-creator-core";
+
 import "survey-core/survey-core.css";
 import "survey-creator-core/survey-creator-core.css";
 
 export default function Home() {
-  const savedJson =
-    typeof window !== "undefined"
-      ? window.localStorage.getItem("survey-json")
-      : null;
+  const [surveyJson, setSurveyJson] = useState(null);
 
-  const surveyJson = savedJson ? JSON.parse(savedJson) : null;
+  useEffect(() => {
+    const saved = window.localStorage.getItem("survey-json");
+    if (saved) {
+      try {
+        setSurveyJson(JSON.parse(saved));
+      } catch (e) {
+        console.error("Invalid JSON in localStorage:", e);
+      }
+    }
+  }, []);
 
   if (!surveyJson) {
     return <h2>No survey yet. Please create one at /creator</h2>;

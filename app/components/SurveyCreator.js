@@ -1,14 +1,19 @@
 'use client'
 
 import { useState } from "react";
-import { ICreatorOptions } from "survey-creator-core";
 import { SurveyCreatorComponent, SurveyCreator } from "survey-creator-react";
 import "survey-core/survey-core.css";
 import "survey-creator-core/survey-creator-core.css";
+import "survey-core/survey.i18n";
+
+
 
 const defaultCreatorOptions = {
-  autoSaveEnabled: true
+  autoSaveEnabled: true,
+  showTranslationTab: true
 };
+
+
 
 const defaultJson = {
   pages: [{
